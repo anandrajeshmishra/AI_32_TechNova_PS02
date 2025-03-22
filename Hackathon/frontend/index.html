@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Sentinel - Enterprise Support Bot</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <h2>AI Sentinel</h2>
+                <p>IDMS Infotech</p>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li class="active"><a href="#"><i class="fas fa-comment"></i> Chatbot</a></li>
+                    <li><a href="#" id="knowledge-base-link"><i class="fas fa-book"></i> Knowledge Base</a></li>
+                    <li><a href="#" id="dashboard-link"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                    <li><a href="#" id="settings-link"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-details">
+                    <h4 id="user-name">John Doe</h4>
+                    <p id="user-department">Sales Department</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="content-container" id="chatbot-container">
+                <div class="header">
+                    <h2>AI Sentinel Support</h2>
+                    <div class="header-actions">
+                        <button id="export-chat"><i class="fas fa-download"></i></button>
+                        <button id="clear-chat"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                
+                <div class="chat-area">
+                    <div class="messages" id="chat-messages">
+                        <div class="message bot-message">
+                            <div class="message-content">
+                                <p>Hello! I'm your AI Support Assistant. How can I help you today?</p>
+                            </div>
+                            <div class="message-time">Just now</div>
+                        </div>
+                    </div>
+                    
+                    <div class="suggestion-chips">
+                        <button class="chip" data-query="How do I create a new sales order?">Create sales order</button>
+                        <button class="chip" data-query="How do I reset my password?">Reset password</button>
+                        <button class="chip" data-query="Where can I find my payslip?">Find payslip</button>
+                        <button class="chip" data-query="How do I raise a finance request?">Finance request</button>
+                    </div>
+                    
+                    <div class="chat-input">
+                        <input type="text" id="user-input" placeholder="Type your question here...">
+                        <button id="send-message"><i class="fas fa-paper-plane"></i></button>
+                        <button id="voice-input"><i class="fas fa-microphone"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Knowledge Base View (Initially Hidden) -->
+            <div class="content-container hidden" id="knowledge-base-container">
+                <div class="header">
+                    <h2>Knowledge Base Management</h2>
+                    <div class="header-actions">
+                        <button id="add-kb-entry"><i class="fas fa-plus"></i> Add New</button>
+                    </div>
+                </div>
+                
+                <div class="kb-content">
+                    <div class="kb-search">
+                        <input type="text" placeholder="Search knowledge base...">
+                        <select id="kb-category-filter">
+                            <option value="all">All Categories</option>
+                            <option value="sales">Sales</option>
+                            <option value="hr">HR</option>
+                            <option value="finance">Finance</option>
+                            <option value="it">IT</option>
+                        </select>
+                    </div>
+                    
+                    <div class="kb-entries" id="kb-entries">
+                        <!-- KB entries will be loaded here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Analytics Dashboard View (Initially Hidden) -->
+            <div class="content-container hidden" id="dashboard-container">
+                <div class="header">
+                    <h2>Analytics Dashboard</h2>
+                    <div class="header-actions">
+                        <button id="export-report"><i class="fas fa-file-export"></i> Export</button>
+                        <select id="time-period">
+                            <option value="day">Today</option>
+                            <option value="week">This Week</option>
+                            <option value="month" selected>This Month</option>
+                            <option value="quarter">This Quarter</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="dashboard-content">
+                    <div class="metrics-row">
+                        <div class="metric-card">
+                            <div class="metric-value">2,457</div>
+                            <div class="metric-title">Total Queries</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">92%</div>
+                            <div class="metric-title">Resolution Rate</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">187</div>
+                            <div class="metric-title">Escalations</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">4.7</div>
+                            <div class="metric-title">User Satisfaction</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart" id="queries-chart">
+                            <h3>Daily Queries</h3>
+                            <div class="chart-placeholder">
+                                <p>Chart visualization will load here</p>
+                            </div>
+                        </div>
+                        <div class="chart" id="categories-chart">
+                            <h3>Query Categories</h3>
+                            <div class="chart-placeholder">
+                                <p>Chart visualization will load here</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="top-queries">
+                        <h3>Top Queries</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Query</th>
+                                    <th>Category</th>
+                                    <th>Count</th>
+                                    <th>Success Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>How do I reset my password?</td>
+                                    <td>IT</td>
+                                    <td>143</td>
+                                    <td>97%</td>
+                                </tr>
+                                <tr>
+                                    <td>Where can I find my payslip?</td>
+                                    <td>HR</td>
+                                    <td>124</td>
+                                    <td>95%</td>
+                                </tr>
+                                <tr>
+                                    <td>How to create a new sales order?</td>
+                                    <td>Sales</td>
+                                    <td>118</td>
+                                    <td>92%</td>
+                                </tr>
+                                <tr>
+                                    <td>How do I submit expense reports?</td>
+                                    <td>Finance</td>
+                                    <td>103</td>
+                                    <td>89%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Settings View (Initially Hidden) -->
+            <div class="content-container hidden" id="settings-container">
+                <div class="header">
+                    <h2>System Settings</h2>
+                    <div class="header-actions">
+                        <button id="save-settings"><i class="fas fa-save"></i> Save Changes</button>
+                    </div>
+                </div>
+                
+                <div class="settings-content">
+                    <div class="settings-section">
+                        <h3>Integration Settings</h3>
+                        <div class="form-group">
+                            <label>ERP API Endpoint</label>
+                            <input type="text" value="https://erp.idmsinfotech.com/api/v1/">
+                        </div>
+                        <div class="form-group">
+                            <label>API Key</label>
+                            <input type="password" value="*****************">
+                            <button class="small-btn">Show</button>
+                        </div>
+                        
+                        <h4>Channel Integrations</h4>
+                        <div class="toggle-group">
+                            <div class="toggle-item">
+                                <span>Web Chat</span>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-item">
+                                <span>Microsoft Teams</span>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-item">
+                                <span>Slack</span>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-item">
+                                <span>WhatsApp</span>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-item">
+                                <span>Email</span>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>AI Model Settings</h3>
+                        <div class="form-group">
+                            <label>AI Model Provider</label>
+                            <select>
+                                <option selected>OpenAI GPT-4</option>
+                                <option>Google Gemini</option>
+                                <option>Claude 3</option>
+                                <option>Custom Model</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Model Confidence Threshold</label>
+                            <input type="range" min="0" max="100" value="75">
+                            <span>75%</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Auto-Escalation Threshold</label>
+                            <input type="range" min="0" max="100" value="60">
+                            <span>60%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>Support Team Configuration</h3>
+                        <div class="form-group">
+                            <label>Default Escalation Team</label>
+                            <select>
+                                <option>L1 Support</option>
+                                <option selected>Department-Based Routing</option>
+                                <option>Custom Rules</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Support Hours</label>
+                            <div class="time-range">
+                                <input type="time" value="09:00">
+                                <span>to</span>
+                                <input type="time" value="18:00">
+                            </div>
+                        </div>
+                        <div class="toggle-item">
+                            <span>Off-Hours Response</span>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal for adding KB entries -->
+        <div class="modal" id="kb-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add Knowledge Base Entry</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Question/Topic</label>
+                        <input type="text" id="kb-question">
+                    </div>
+                    <div class="form-group">
+                        <label>Answer/Content</label>
+                        <textarea id="kb-answer" rows="6"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="kb-category">
+                            <option value="sales">Sales</option>
+                            <option value="hr">HR</option>
+                            <option value="finance">Finance</option>
+                            <option value="it">IT</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tags (comma separated)</label>
+                        <input type="text" id="kb-tags">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="cancel-btn">Cancel</button>
+                    <button class="save-btn">Save Entry</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
